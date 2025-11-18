@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shameem Ahammed - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                Shameem Ahammed
+
+                <!-- 👇 Add this social links block under your logo -->
+                <div class="social-links">
+                    <a href="https://github.com/shameem17" target="_blank" aria-label="GitHub">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="https://linkedin.com/in/shameem22" target="_blank" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="https://twitter.com/shameem_22" target="_blank" aria-label="Twitter">
+                        <i class="fab fa-x-twitter"></i>
+                    </a>
+                    <a href="mailto:shameem105455@gmail.com" aria-label="Email">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </div>
+            </div>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#projects">Work</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#coding-profile">Coding Profile</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="https://drive.google.com/uc?export=download&id=1Hg0kddIo3VPsB6oibGpsOGch4Kwuv46N"
+                        target="_blank" class="resume-nav-btn">
+                        <i class="fas fa-download"></i> Resume
+                    </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 id="superTitle"></h1>
+                <h3 id="heroTitle"></h3>
+                <p id="heroDescription" style="text-align: justify;"></p>
+                <div class="cta-buttons">
+                    <a href="#projects" class="btn-primary">View My Work</a>
+                    <a href="#contact" class="btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="hero-image-wrapper">
+                    <div class="hero-image-inner">
+                        <img id="profileImage" alt="Profile Image"
+                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 30px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="section-header">
+            <div class="section-label">About Me</div>
+            <h2 id="aboutTitle" class="section-title"></h2>
+            <p style="text-align: justify;" id="aboutText" class="section-description">Loading ....</p>
+        </div>
+    </section>
+
+    <section id="experience">
+        <div class="section-header">
+            <div class="section-label">Professional Journey</div>
+            <h2 class="section-title">Work Experience</h2>
+            <p class="section-description">My professional journey in iOS Development and Software Engineering.</p>
+        </div>
+        <div id="experience-timeline" class="experience-timeline"></div>
+    </section>
+
+    <section id="projects">
+        <div class="section-header">
+            <div class="section-label">Featured Work</div>
+            <h2 class="section-title">Work Highlights</h2>
+        </div>
+        <div class="projects-grid" id="projectsGrid"></div>
+    </section>
+
+    <section id="skills">
+        <div class="section-header">
+            <div class="section-label">Expertise</div>
+            <h2 class="section-title">Skills & Technologies</h2>
+        </div>
+        <div id="skills-grid" class="skills-grid"></div>
+    </section>
+
+    <section id="education">
+        <div class="section-header">
+            <div class="section-label">Education</div>
+            <h2 class="section-title">Academic Background</h2>
+            <p class="section-description">My educational journey in computer science and engineering.</p>
+        </div>
+        <div id="education-timeline" class="education-timeline"></div>
+    </section>
+
+    <section id="coding-profile">
+        <div class="section-header">
+            <div class="section-label">Coding Profile</div>
+            <h2 class="section-title">Where I Code & Compete</h2>
+            <p class="section-description">Active on various coding platforms, constantly learning and sharing knowledge
+                with the developer community.</p>
+        </div>
+        <div id="profile-grid" class="profile-grid"></div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-container">
+            <div class="section-header">
+                <div class="section-label">Get In Touch</div>
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-description">Have a project in mind? Let's discuss how we can bring your ideas to
+                    life.</p>
+            </div>
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-main">
+                <!-- Left: About & Contact Info -->
+                <div class="footer-info">
+                    <h3 class="footer-name">Shameem Ahammed</h3>
+                    <p class="footer-tagline">Software Engineer | iOS Developer</p>
+                    <p><i class="fas fa-phone"></i> +880 1788-381680</p>
+                    <p><i class="fas fa-envelope"></i> shameem105455@gmail.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</p>
+                </div>
+
+                <!-- Middle: Quick Links -->
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <a href="#about">About Me</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#projects">Projects</a>
+                    <a href="#skills">Skills</a>
+                    <a href="#education">Education</a>
+                    <a href="#coding-profile">Coding Profile</a>
+                    <a href="#contact">Contact</a>
+                </div>
+
+                <!-- Right: Social Connect -->
+                <div class="footer-connect">
+                    <h4>Connect With Me</h4>
+                    <div class="bottom-social-links">
+                        <a href="https://github.com/shameem17" target="_blank" aria-label="GitHub" title="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/shameem22" target="_blank" aria-label="LinkedIn"
+                            title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://twitter.com/shameem_22" target="_blank" aria-label="Twitter" title="Twitter">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <a href="mailto:shameem105455@gmail.com" aria-label="Email" title="Email">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                        <a href="https://www.facebook.com/shameem.ahammed.22" target="_blank" aria-label="Facebook"
+                            title="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="https://instagram.com/shameem_22" target="_blank" aria-label="Instagram"
+                            title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom: Copyright & Links -->
+            <div class="footer-center">
+                <p>&copy; 2025 Shameem Ahammed. Made with <span class="footer-heart">♥</span> in Bangladesh</p>
+                <div class="footer-links-bottom">
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                    <a href="#sitemap">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Resume Download Button -->
+    <a href="https://drive.google.com/uc?export=download&id=1Hg0kddIo3VPsB6oibGpsOGch4Kwuv46N" target="_blank"
+        class="floating-resume-btn" title="Download Resume" aria-label="Download Resume">
+        <i class="fas fa-download"></i>
+        <span class="btn-text">Resume</span>
+    </a>
+
+    <!-- Project Modal -->
+    <div id="projectModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle" class="modal-title"></h2>
+                <button class="modal-close" onclick="closeProjectModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-tabs">
+                <button class="tab-button active" onclick="switchTab('preview')">
+                    <i class="fas fa-play-circle"></i> Preview
+                </button>
+                <button class="tab-button" onclick="switchTab('gallery')">
+                    <i class="fas fa-images"></i> Gallery
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="previewTab" class="tab-content active">
+                    <div id="previewContent" class="preview-container">
+                        <p class="no-preview">No preview available for this project</p>
+                    </div>
+                </div>
+                <div id="galleryTab" class="tab-content">
+                    <div id="galleryContent" class="gallery-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Auto-sliding image carousel for each project
+
+    </script>
+    <script src="script.js"></script>
+</body>
+
+</html>

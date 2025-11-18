@@ -1,0 +1,235 @@
+{
+    "resumeUrl": "https://drive.google.com/uc?export=download&id=1Hg0kddIo3VPsB6oibGpsOGch4Kwuv46N",
+    "hero": {
+        "superTitle": "Shameem Ahammed",
+        "title": "Software Engineer | iOS Developer",
+        "heroDescription": "Passionate iOS Developer with a knack for crafting seamless user experiences and robust applications in both UIKit and SwiftUI"
+    },
+    "profileImage": "images/profile.png",
+    "title": "My Journey in iOS Development",
+    "about": "I am a passionate iOS Developer with over <strong>2+ years</strong> of professional experience, currently working at Mir Info System, where I've been contributing to projects like <b>Skitto, Grameenphone</b>. I specialize in Swift and SwiftUI, and have a decent command on Objective-C, building high-quality mobile applications.<br> <br> I have hands-on experience integrating Firebase, Alamofire, and other modern frameworks, third party libaray (SDK) to create scalable, data-driven apps. My development approach focuses on clean architecture, smooth performance, and intuitive user experiences. Beyond coding, I'm driven by continuous learning and a deep interest in solving real-world problems through elegant, maintainable, and impactful mobile solutions.",
+    "experience": [
+        {
+            "position": "iOS Developer",
+            "company": "Skitto x Grameenphone via Mir Info System Ltd.",
+            "location": "Dhaka, Bangladesh",
+            "duration": "Nov 2023 - Present",
+            "highlights": [
+                "Skitto iOS App Development",
+                "Feature Implementation & Bug Fixes",
+                "Unit Testing",
+                "Agile Development"
+            ]
+        },
+        {
+            "position": "Software Engineer (iOS Developer)",
+            "company": "Mir Info System Ltd.",
+            "location": "Dhaka, Bangladesh",
+            "duration": "Oct 2023 - Present",
+            "highlights": [
+                "iOS",
+                "EDGE AI Training"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "degree": "B.Sc. in Computer Science and Engineering",
+            "institution": "Khulna University of Engineering & Technology (KUET)",
+            "location": "Khulna, Bangladesh",
+            "duration": "2018 - 2023",
+            "highlights": [
+                "CGPA: 3.53/4.00",
+                "Algorithms and Data Structures",
+                "Completed various software projects"
+            ]
+        },
+        {
+            "degree": "Higher School Certificate (HSC)",
+            "institution": "Kaligonj College",
+            "location": "Kaligonj, Satkhira, Bangladesh",
+            "duration": "2015 - 2017",
+            "highlights": [
+                "GPA: 5.00/5.00",
+                "Golden A+ Grade",
+                "Science Group",
+                "Board Scholarship"
+            ]
+        },
+        {
+            "degree": "Secondary School Certificate (SSC)",
+            "institution": "Sreekala Secondary School",
+            "location": "Kaligonj, Satkhira, Bangladesh",
+            "duration": "2013 - 2015",
+            "highlights": [
+                "GPA: 5.00/5.00",
+                "Golden A+ Grade",
+                "Science Group",
+                "Board Scholarship"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "title": "Skitto iOS App",
+            "description": "I contributed to major Skitto iOS releases (v4.6.0 to v6.x.x ongoing), developing features like Bioscope streaming, Balance sharing, Deal Merger, Data Details & more. I optimized existing modules, integrated third-party libraries, fixed bugs, managed release cycles, and collaborated with cross-functional teams to enhance overall app performance.",
+            "tags": [
+                "Swift",
+                "Objective-C",
+                "UIKit",
+                "Alamofire",
+                "Combine",
+                "Core Data"
+            ],
+            "images": [
+                "https://mir-s3-cdn-cf.behance.net/project_modules/1400_webp/7dda3b58784509.5a60b0bd2ae78.png",
+                "https://logos-world.net/wp-content/uploads/2022/07/Grameenphone-Logo.jpg",
+                "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c0/69/30/c06930fa-823b-04f3-ef40-b6182a16874b/1320x2868_03.png/460x998bb.webp"
+            ],
+            "appStore": "https://apps.apple.com/us/app/skitto/id1189242139"
+        },
+        {
+            "title": "Habit Tracking App",
+            "description": "A clean, modern, and easy-to-use iOS app built with SwiftUI to help you build better habits. Track your daily routine, visualize your progress, and stay motivated with a beautiful, intuitive interface.",
+            "tags": [
+                "SwiftUI",
+                "Chart",
+                "URLSession",
+                "Tokenization"
+            ],
+            "images": [
+                "images/habitTracker/banner1.png",
+                "images/habitTracker/banner2.png",
+                "images/habitTracker/splash.png",
+                "images/habitTracker/signin.png",
+                "images/habitTracker/signup.png",
+                "images/habitTracker/forgotPass.png",
+                "images/habitTracker/home.png",
+                "images/habitTracker/home2.png",
+                "images/habitTracker/daily.png",
+                "images/habitTracker/previousDay.png",
+                "images/habitTracker/addnew.png",
+                "images/habitTracker/profile.png",
+                "images/habitTracker/settings.png"
+            ],
+            "preview": "https://www.youtube.com/watch?v=y-MUjBzlZFs",
+            "github": "https://github.com/shameem17/HabitTracker"
+        }
+    ],
+    "skills": [
+        {
+            "icon": "📱",
+            "name": "iOS Development",
+            "tags": [
+                "Swift",
+                "SwiftUI",
+                "UIKit",
+                "Combine",
+                "Async/Await",
+                "CoreLocation",
+                "MapKit"
+            ]
+        },
+        {
+            "icon": "🏗",
+            "name": "Architecture",
+            "tags": [
+                "MVVM",
+                "MVC",
+                "Clean Architecture",
+                "Protocol-Oriented Programming"
+            ]
+        },
+        {
+            "icon": "🔧",
+            "name": "Tools & Frameworks",
+            "tags": [
+                "Copilot",
+                "Git",
+                "Jira",
+                "AI Tools",
+                "Postman"
+            ]
+        }
+    ],
+    "codingProfiles": [
+        {
+            "name": "LeetCode",
+            "icon": "images/leetcode-icon.png",
+            "username": "@shameem17",
+            "url": "https://leetcode.com/shameem17",
+            "stats": [
+                {
+                    "value": "355+",
+                    "label": "Solved"
+                },
+                {
+                    "value": "1487",
+                    "label": "Rating"
+                },
+                {
+                    "value": "50 Days Streak",
+                    "label": "Badge"
+                }
+            ],
+            "description": "Solved algorithmic challenges in Swift, focusing on data structures and problem-solving techniques.",
+            "badges": [
+                "Algorithms",
+                "DSA",
+                "Swift"
+            ]
+        },
+        {
+            "name": "GitHub",
+            "icon": "images/github-icon.png",
+            "username": "@shameem17",
+            "url": "https://github.com/shameem17",
+            "stats": [
+                {
+                    "value": "50+",
+                    "label": "Repos"
+                },
+                {
+                    "value": "1K+",
+                    "label": "Commits"
+                },
+                {
+                    "value": "100+",
+                    "label": "Stars"
+                }
+            ],
+            "description": "Open source contributions, iOS projects, and Swift packages. Check out my latest work and collaborate!",
+            "badges": [
+                "Swift",
+                "iOS",
+                "Open Source"
+            ]
+        },
+        {
+            "name": "Codeforces",
+            "icon": "images/codeforces-icon.png",
+            "username": "@shameem17",
+            "url": "https://codeforces.com/profile/shameem17",
+            "stats": [
+                {
+                    "value": "1600+",
+                    "label": "Rating"
+                },
+                {
+                    "value": "500+",
+                    "label": "Problems"
+                },
+                {
+                    "value": "Specialist",
+                    "label": "Rank"
+                }
+            ],
+            "description": "Competitive programmer with focus on algorithms and data structures.",
+            "badges": [
+                "Algorithms",
+                "Competitive",
+                "Problem Solving"
+            ]
+        }
+    ]
+}
