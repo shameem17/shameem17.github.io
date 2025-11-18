@@ -362,22 +362,35 @@ window.addEventListener("keydown", (event) => {
     closeProjectModal();
   }
 });
-// Contact Form Submission Handler
-const scriptURL =
-  "https://script.google.com/macros/s/AKfycbw3ijT5PDYBpX5fhYoGJsDtYvlRwH4faHsrgf4gZ7duA2PX2a9tePadnmIJiaI6QGhmZw/exec";
+// EmailJS Configuration
+// Replace these with your actual EmailJS values
+const EMAILJS_PUBLIC_KEY = "961nxAGTq9j0Kki6g"; // Replace with your EmailJS public key
+const EMAILJS_SERVICE_ID = "service_d77xomw"; // Replace with your EmailJS service ID
+const EMAILJS_TEMPLATE_ID = "template_wymp3wm"; // Replace with your EmailJS template ID
+
+// Initialize EmailJS
+emailjs.init(EMAILJS_PUBLIC_KEY);
 
 function sendMail(event) {
   event.preventDefault();
   console.log("sendMail function called!");
-  console.log("Submitting form...");
 
   const form = document.getElementById("contactForm");
-  const formData = {
-    name: form.name.value,
-    email: form.email.value,
-    message: form.message.value,
-  };
-  console.log("Form Data:", formData);
+  const name = form.name.value;
+  const email = form.email.value;
+  const message = form.message.value;
+
+  // Validate form
+  if (!name || !email || !message) {
+    alert("Please fill in all fields.");
+    return false;
+  } else if (!/\S+@\S+\.\S+/.test(email)) {
+    alert("Please enter a valid email address.");
+    return false;
+  } else if (name.length > 100) {
+    alert("Name is too long. Please limit to 100 characters.");
+    return false;
+  }
 
   // Show loading state
   const submitBtn = form.querySelector('button[type="submit"]');
@@ -385,30 +398,24 @@ function sendMail(event) {
   submitBtn.textContent = "Sending...";
   submitBtn.disabled = true;
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: JSON.stringify(formData),
-    headers: { "Content-Type": "application/json" },
-  })
-    .then((res) => {
-      console.log("Response:", res);
+  // Send email using EmailJS
+  emailjs
+    .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+    .then(() => {
+      console.log("Email sent successfully!");
       alert("Message sent successfully! Thank you for reaching out.");
-      form.reset(); // Clear form
+      form.reset();
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
     })
-    .catch((err) => {
-      console.error("Error:", err);
-      alert(
-        "Error sending message: " +
-          err +
-          ". Please try again or email me directly."
-      );
+    .catch((error) => {
+      console.error("EmailJS Error:", error);
+      alert("Failed to send message. Error: " + JSON.stringify(error));
       submitBtn.textContent = originalText;
       submitBtn.disabled = false;
     });
 
-  return false; // Prevent form submission
+  return false;
 }
 
 // Wait for DOM to be fully loaded
