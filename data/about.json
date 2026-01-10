@@ -7,7 +7,7 @@
     },
     "profileImage": "images/profile.png",
     "title": "My Journey in iOS Development",
-    "about": "I am a passionate iOS Developer with over <strong>2+ years</strong> of professional experience, currently working at Mir Info System, where I've been contributing to projects like <b>Skitto, Grameenphone</b>. I specialize in Swift and SwiftUI, and have a decent command on Objective-C, building high-quality mobile applications.<br> <br> I have hands-on experience integrating Firebase, Alamofire, and other modern frameworks, third party libaray (SDK) to create scalable, data-driven apps. My development approach focuses on clean architecture, smooth performance, and intuitive user experiences. Beyond coding, I'm driven by continuous learning and a deep interest in solving real-world problems through elegant, maintainable, and impactful mobile solutions.",
+    "about": "I am a passionate iOS Developer with over <strong>2.5+ years</strong> of professional experience, currently working at Mir Info System, where I've been contributing to projects like <b>Skitto, Grameenphone</b>. I specialize in Swift and SwiftUI, and have a decent command on Objective-C, building high-quality mobile applications.<br> <br> I have hands-on experience integrating Firebase, Alamofire, and other modern frameworks, third party libaray (SDK) to create scalable, data-driven apps. My development approach focuses on clean architecture, smooth performance, and intuitive user experiences. Beyond coding, I'm driven by continuous learning and a deep interest in solving real-world problems through elegant, maintainable, and impactful mobile solutions.",
     "experience": [
         {
             "position": "iOS Developer",
@@ -96,6 +96,33 @@
                 "Chart",
                 "URLSession",
                 "Tokenization"
+            ],
+            "images": [
+                "images/habitTracker/banner1.png",
+                "images/habitTracker/banner2.png",
+                "images/habitTracker/splash.png",
+                "images/habitTracker/signin.png",
+                "images/habitTracker/signup.png",
+                "images/habitTracker/forgotPass.png",
+                "images/habitTracker/home.png",
+                "images/habitTracker/home2.png",
+                "images/habitTracker/daily.png",
+                "images/habitTracker/previousDay.png",
+                "images/habitTracker/addnew.png",
+                "images/habitTracker/profile.png",
+                "images/habitTracker/settings.png"
+            ],
+            "preview": "https://www.youtube.com/watch?v=y-MUjBzlZFs",
+            "github": "https://github.com/shameem17/HabitTracker"
+        },
+        {
+            "title": "Trending Movies",
+            "description": "An iOS app using Swift and UIKit to help you discover trending movies. Explore the latest releases, visualize your watchlist, and stay updated with a beautiful, intuitive interface.",
+            "tags": [
+                "Swift",
+                "UIKit",
+                "Combine",
+                "Observer"
             ],
             "images": [
                 "images/habitTracker/banner1.png",
