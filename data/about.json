@@ -1,5 +1,5 @@
 {
-    "resumeUrl": "https://drive.google.com/file/d/1ooWprp339oJsm3KgXlHuH1ZNAs8p0Z8K/view?usp=drive_link",
+    "resumeUrl": "https://drive.google.com/uc?export=download&id=1ooWprp339oJsm3KgXlHuH1ZNAs8p0Z8K",
     "hero": {
         "superTitle": "Shameem Ahammed",
         "title": "Software Engineer | iOS Developer",
@@ -168,7 +168,8 @@
                 "Git",
                 "Jira",
                 "AI Tools",
-                "Postman"
+                "Postman",
+                "Agile"
             ]
         }
     ],
