@@ -2,12 +2,12 @@
     "resumeUrl": "https://drive.google.com/uc?export=download&id=1ooWprp339oJsm3KgXlHuH1ZNAs8p0Z8K",
     "hero": {
         "superTitle": "Shameem Ahammed",
-        "title": "Software Engineer | iOS Developer",
-        "heroDescription": "Passionate iOS Developer with a knack for crafting seamless user experiences and robust applications in both UIKit and SwiftUI"
+        "title": "Senior Software Engineer - iOS",
+        "heroDescription": "Senior iOS Developer with a passion for crafting scalable, high-performance applications and intuitive user experiences using UIKit and SwiftUI."
     },
     "profileImage": "images/profile.png",
     "title": "My Journey in iOS Development",
-    "about": "I am a passionate Senior iOS Software Engineer with over 2.5 years of professional experience, currently at Mir Info System, contributing to high-impact projects like Skitto and Grameenphone. I specialize in Swift and SwiftUI, with solid knowledge of Objective-C, delivering high-quality, scalable mobile applications.<br>I have hands-on experience integrating Firebase, Alamofire, and other modern frameworks and third-party SDKs to build data-driven, robust apps. My development approach emphasizes clean architecture, smooth performance, and intuitive user experiences. Beyond coding, I am driven by continuous learning and a passion for solving real-world problems through elegant, maintainable, and impactful mobile solutions.",
+    "about": "I am a passionate Senior iOS Software Engineer with over 2.5 years of professional experience, currently working at Mir Info System and contributing to high-impact projects such as Skitto, Grameenphone. I specialize in Swift and SwiftUI, with solid experience in Objective-C, delivering high-quality, scalable mobile applications.<br><br>I have hands-on experience integrating Firebase, Alamofire, and other modern frameworks and third-party SDKs to build robust, data-driven apps. My development approach focuses on clean architecture, smooth performance, and intuitive user experiences. Beyond coding, I am driven by continuous learning and a passion for solving real-world problems through elegant, maintainable, and impactful mobile solutions.",
     "experience": [
         {
             "position": "iOS Developer",
@@ -18,11 +18,12 @@
                 "Skitto iOS App Development",
                 "Feature Implementation & Bug Fixes",
                 "Unit Testing",
+                "MVVM Architecture",
                 "Agile Development"
             ]
         },
         {
-            "position": "Software Engineer (iOS Developer)",
+            "position": "Senior Software Engineer - iOS",
             "company": "Mir Info System Ltd.",
             "location": "Dhaka, Bangladesh",
             "duration": "Oct 2023 - Present",
