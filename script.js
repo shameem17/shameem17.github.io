@@ -1,431 +1,644 @@
-fetch("data/about.json")
-  .then((res) => res.json())
-  .then((data) => {
-    // use innerHTML to render bold tags
-    console.log(data.hero.superTitle);
-    document.getElementById("aboutText").innerHTML = data.about;
-    document.getElementById("aboutTitle").innerHTML = data.title;
-    document.getElementById("profileImage").src = data.profileImage;
-    document.getElementById("superTitle").innerHTML = data.hero.superTitle;
-    document.getElementById("heroTitle").innerHTML = data.hero.title;
-    document.getElementById("heroDescription").innerHTML =
-      data.hero.heroDescription;
+/* ============================================
+   PORTFOLIO — MAIN SCRIPT
+   Fully dynamic: all content from data/about.json
+   ============================================ */
 
-    // Set resume URL
-    if (data.resumeUrl) {
-      const resumeBtn = document.querySelector(".floating-resume-btn");
-      if (resumeBtn) {
-        resumeBtn.href = data.resumeUrl;
-      }
-      // Also set for nav button
-      const navResumeBtn = document.querySelector(".resume-nav-btn");
-      if (navResumeBtn) {
-        navResumeBtn.href = data.resumeUrl;
-      }
-    }
+// ── EmailJS Configuration ──────────────────
+const EMAILJS_PUBLIC_KEY = "961nxAGTq9j0Kki6g";
+const EMAILJS_SERVICE_ID = "service_d77xomw";
+const EMAILJS_TEMPLATE_ID = "template_wymp3wm";
 
-    setupProjects(data.projects);
-    setupSkills(data.skills);
-    if (data.experience) {
-      setupExperience(data.experience);
-    }
-    if (data.education) {
-      setupEducation(data.education);
-    }
-    setupProfiles(data.codingProfiles);
-  })
-  .catch((err) => console.error("Failed to load About section:", err));
+// ── Bootstrap ──────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  emailjs.init(EMAILJS_PUBLIC_KEY);
+  initApp();
+});
 
-function initSlider(sliderId, dotsId, totalImages) {
-  let currentIndex = 0;
-  const slider = document.getElementById(sliderId);
-  const dots = document.getElementById(dotsId).children;
+async function initApp() {
+  try {
+    const res = await fetch("data/about.json");
+    const data = await res.json();
 
-  function updateSlider() {
-    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+    renderNav(data);
+    renderHero(data);
+    renderAbout(data);
+    renderExperience(data.experience);
+    renderProjects(data.projects);
+    renderSkills(data.skills);
+    renderEducation(data.education);
+    renderProfiles(data.codingProfiles);
+    renderContact(data.contact, data.socialLinks);
+    renderFooter(data);
 
-    // Update dots
-    Array.from(dots).forEach((dot, index) => {
-      dot.classList.toggle("active", index === currentIndex);
-    });
+    setupScrollEffects();
+    setupMobileMenu(data);
+    setupContactForm();
+
+    // Hide loader
+    setTimeout(() => {
+      document.getElementById("loader").classList.add("hidden");
+    }, 400);
+  } catch (err) {
+    console.error("Failed to load data:", err);
+    document.getElementById("loader").classList.add("hidden");
   }
-
-  function nextSlide() {
-    currentIndex = (currentIndex + 1) % totalImages;
-    updateSlider();
-  }
-
-  // Auto-slide every 2 seconds
-  setInterval(nextSlide, 2000);
-
-  // Optional: Add click handlers to dots
-  Array.from(dots).forEach((dot, index) => {
-    dot.addEventListener("click", () => {
-      currentIndex = index;
-      updateSlider();
-    });
-  });
 }
 
-function setupProjects(projects) {
-  //card
+/* ==========================================
+   RENDER — Navigation
+   ========================================== */
+function renderNav(data) {
+  const navLinks = document.getElementById("navLinks");
+  const navLogo = document.getElementById("navLogo");
+
+  // Set logo to initials
+  const names = data.hero.superTitle.split(" ");
+  navLogo.textContent = names.map((n) => n[0]).join("");
+
+  // Build nav links from data
+  if (data.nav) {
+    navLinks.innerHTML = data.nav
+      .map((item) => `<li><a href="${item.href}">${item.label}</a></li>`)
+      .join("");
+  }
+
+  // Resume button
+  if (data.resumeUrl) {
+    document.getElementById("navResumeBtn").href = data.resumeUrl;
+    document.getElementById("floatingResumeBtn").href = data.resumeUrl;
+  }
+}
+
+/* ==========================================
+   RENDER — Hero
+   ========================================== */
+function renderHero(data) {
+  const { hero, profileImage, socialLinks } = data;
+
+  document.getElementById("superTitle").innerHTML = hero.superTitle;
+  document.getElementById("heroTitle").innerHTML = hero.title;
+  document.getElementById("heroDescription").innerHTML = hero.heroDescription;
+  document.getElementById("profileImage").src = profileImage;
+
+  // Taglines
+  if (hero.taglines) {
+    document.getElementById("heroTaglines").innerHTML = hero.taglines
+      .map((t) => `<span class="tagline">${t}</span>`)
+      .join("");
+  }
+
+  // Social links
+  if (socialLinks) {
+    document.getElementById("heroSocials").innerHTML = socialLinks
+      .map(
+        (s) =>
+          `<a href="${s.url}" target="_blank" aria-label="${s.platform}" title="${s.platform}"><i class="${s.icon}"></i></a>`,
+      )
+      .join("");
+  }
+}
+
+/* ==========================================
+   RENDER — About
+   ========================================== */
+function renderAbout(data) {
+  document.getElementById("aboutTitle").innerHTML = data.title;
+  document.getElementById("aboutText").innerHTML = data.about;
+}
+
+/* ==========================================
+   RENDER — Experience
+   ========================================== */
+function renderExperience(experience) {
+  const container = document.getElementById("experience-timeline");
+  if (!container || !experience) return;
+
+  container.innerHTML = experience
+    .map(
+      (exp) => `
+    <div class="timeline-card reveal">
+      <div class="timeline-icon">💼</div>
+      <div class="timeline-body">
+        <h3 class="timeline-title">${exp.position}</h3>
+        <p class="timeline-subtitle">${exp.company}</p>
+        <div class="timeline-meta">
+          <span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>
+          <span><i class="fas fa-calendar-alt"></i> ${exp.duration}</span>
+        </div>
+        <div class="timeline-badges">
+          ${exp.highlights.map((h) => `<span class="badge">${h}</span>`).join("")}
+        </div>
+      </div>
+    </div>`,
+    )
+    .join("");
+}
+
+/* ==========================================
+   RENDER — Projects
+   ========================================== */
+function renderProjects(projects) {
   const container = document.getElementById("projectsGrid");
+  if (!container || !projects) return;
 
   projects.forEach((project, index) => {
-    // Create card wrapper
     const card = document.createElement("div");
-    card.classList.add("project-card");
-    card.style.cursor = "pointer";
+    card.classList.add("project-card", "reveal");
+    card.addEventListener("click", () => openProjectModal(project));
 
-    // Add click event to open modal
-    card.addEventListener("click", () => {
-      openProjectModal(project);
-    });
+    const imagesHTML = project.images
+      .map(
+        (img) =>
+          `<div class="slider-image" style="background-image: url('${img}')"></div>`,
+      )
+      .join("");
 
-    // Build image slider
-    let imagesHTML = "";
-    project.images.forEach((img) => {
-      imagesHTML += `
-          <div class="slider-image" style="background-image: url('${img}'); background-size: cover; background-position: center;"></div>
-        `;
-    });
-
-    // Dots
-    let dotsHTML = project.images
+    const dotsHTML = project.images
       .map((_, i) => `<span class="dot ${i === 0 ? "active" : ""}"></span>`)
       .join("");
 
-    // Build tags
     const tagsHTML = project.tags
       .map((tag) => `<span class="tag">${tag}</span>`)
       .join("");
-    const previewBtn = project.preview
-      ? `<a href="${project.preview}" target="_blank" class="btn preview-btn" onclick="event.stopPropagation()">🎬 Preview</a>`
-      : "";
-    const githubBtn = project.github
-      ? `<a href="${project.github}" target="_blank" class="btn github-btn" onclick="event.stopPropagation()">💻 GitHub</a>`
-      : "";
-    const appStoreBtn = project.appStore
-      ? `<a href="${project.appStore}" target="_blank" class="btn appstore-btn" onclick="event.stopPropagation()">📱 App Store</a>`
-      : "";
-    // Full card HTML
-    card.innerHTML = `
-        <div class="project-image">
-          <div class="image-slider" id="slider${index + 1}">
-            ${imagesHTML}
-          </div>
-          <div class="slider-dots" id="dots${index + 1}">
-            ${dotsHTML}
-          </div>
-        </div>
 
-        <div class="project-content">
-          <h3 class="project-title">${project.title}</h3>
-          <p class="project-description">${project.description}</p>
-          <div class="project-tags">${tagsHTML}</div>
-          <div class="project-links">
-            ${previewBtn}
-            ${githubBtn}
-            ${appStoreBtn}
-          </div>
-        </div>
-      `;
+    const links = [];
+    if (project.preview)
+      links.push(
+        `<a href="${project.preview}" target="_blank" class="btn" onclick="event.stopPropagation()"><i class="fas fa-play"></i> Preview</a>`,
+      );
+    if (project.github)
+      links.push(
+        `<a href="${project.github}" target="_blank" class="btn" onclick="event.stopPropagation()"><i class="fab fa-github"></i> GitHub</a>`,
+      );
+    if (project.appStore)
+      links.push(
+        `<a href="${project.appStore}" target="_blank" class="btn" onclick="event.stopPropagation()"><i class="fab fa-app-store"></i> App Store</a>`,
+      );
+
+    card.innerHTML = `
+      <div class="project-image">
+        <div class="image-slider" id="slider${index}">${imagesHTML}</div>
+        <div class="slider-dots" id="dots${index}">${dotsHTML}</div>
+      </div>
+      <div class="project-content">
+        <h3 class="project-title">${project.title}</h3>
+        <p class="project-description">${project.description}</p>
+        <div class="project-tags">${tagsHTML}</div>
+        <div class="project-links">${links.join("")}</div>
+      </div>`;
 
     container.appendChild(card);
-    initSlider(`slider${index + 1}`, `dots${index + 1}`, project.images.length);
+    initSlider(`slider${index}`, `dots${index}`, project.images.length);
   });
 }
 
-function setupSkills(skills) {
-  const skillsGrid = document.getElementById("skills-grid");
-  if (skillsGrid && skills) {
-    skillsGrid.innerHTML = skills
-      .map(
-        (skill) => `
-      <div class="skill-card">
-        <div class="skill-icon">${skill.icon}</div>
-        <h3 class="skill-name">${skill.name}</h3>
-        <div class="skill-tags">
-          ${skill.tags
-            .map((tag) => `<span class="skill-tag">${tag}</span>`)
-            .join("")}
+/* ==========================================
+   RENDER — Skills
+   ========================================== */
+function renderSkills(skills) {
+  const grid = document.getElementById("skills-grid");
+  if (!grid || !skills) return;
+
+  grid.innerHTML = skills
+    .map(
+      (skill) => `
+    <div class="skill-card reveal">
+      <div class="skill-icon">${skill.icon}</div>
+      <h3 class="skill-name">${skill.name}</h3>
+      <div class="skill-tags">
+        ${skill.tags.map((t) => `<span class="skill-tag">${t}</span>`).join("")}
+      </div>
+    </div>`,
+    )
+    .join("");
+}
+
+/* ==========================================
+   RENDER — Education
+   ========================================== */
+function renderEducation(education) {
+  const container = document.getElementById("education-timeline");
+  if (!container || !education) return;
+
+  container.innerHTML = education
+    .map(
+      (edu) => `
+    <div class="timeline-card reveal">
+      <div class="timeline-icon">🎓</div>
+      <div class="timeline-body">
+        <h3 class="timeline-title">${edu.degree}</h3>
+        <p class="timeline-subtitle">${edu.institution}</p>
+        <div class="timeline-meta">
+          <span><i class="fas fa-map-marker-alt"></i> ${edu.location}</span>
+          <span><i class="fas fa-calendar-alt"></i> ${edu.duration}</span>
+        </div>
+        <div class="timeline-badges">
+          ${edu.highlights.map((h) => `<span class="badge">${h}</span>`).join("")}
         </div>
       </div>
-    `
-      )
-      .join("");
-  }
+    </div>`,
+    )
+    .join("");
 }
 
-function setupExperience(experience) {
-  const experienceTimeline = document.getElementById("experience-timeline");
-  if (experienceTimeline && experience) {
-    experienceTimeline.innerHTML = experience
-      .map(
-        (exp) => `
-        <div class="experience-card">
-          <div class="experience-icon">💼</div>
-          <div class="experience-header">
-            <h3 class="experience-position">${exp.position}</h3>
-            <div class="experience-company">${exp.company}</div>
-            <div class="experience-meta">
-              <span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>
-              <span><i class="fas fa-calendar-alt"></i> ${exp.duration}</span>
-            </div>
-          </div>
-          <div class="experience-highlights">
-            ${exp.highlights
-              .map(
-                (highlight) => `
-              <span class="highlight-badge">
-                <i class="fas fa-check-circle"></i> ${highlight}
-              </span>
-            `
-              )
-              .join("")}
-          </div>
+/* ==========================================
+   RENDER — Coding Profiles
+   ========================================== */
+function renderProfiles(profiles) {
+  const grid = document.getElementById("profile-grid");
+  if (!grid || !profiles) return;
+
+  grid.innerHTML = profiles
+    .map(
+      (p) => `
+    <a href="${p.url}" target="_blank" class="profile-card reveal">
+      <div class="profile-header">
+        <img class="profile-icon-img" src="${p.icon}" alt="${p.name}">
+        <div class="profile-info">
+          <h3>${p.name}</h3>
+          <p class="profile-username">${p.username}</p>
         </div>
-      `
+      </div>
+      <div class="profile-stats">
+        ${p.stats
+          .map(
+            (s) => `
+          <div class="stat">
+            <span class="stat-value">${s.value}</span>
+            <span class="stat-label">${s.label}</span>
+          </div>`,
+          )
+          .join("")}
+      </div>
+      <div class="profile-badges">
+        ${p.badges.map((b) => `<span class="badge">${b}</span>`).join("")}
+      </div>
+    </a>`,
+    )
+    .join("");
+}
+
+/* ==========================================
+   RENDER — Contact Info
+   ========================================== */
+function renderContact(contact, socialLinks) {
+  const container = document.getElementById("contactInfo");
+  if (!container || !contact) return;
+
+  const items = [
+    {
+      icon: "fas fa-envelope",
+      label: "Email",
+      value: contact.email,
+      href: `mailto:${contact.email}`,
+    },
+    {
+      icon: "fas fa-phone",
+      label: "Phone",
+      value: contact.phone,
+      href: `tel:${contact.phone.replace(/\s/g, "")}`,
+    },
+    {
+      icon: "fas fa-map-marker-alt",
+      label: "Location",
+      value: contact.location,
+      href: null,
+    },
+  ];
+
+  container.innerHTML = items
+    .map(
+      (item) => `
+    <${item.href ? `a href="${item.href}"` : "div"} class="contact-item">
+      <div class="contact-item-icon"><i class="${item.icon}"></i></div>
+      <div>
+        <div class="contact-item-label">${item.label}</div>
+        <div class="contact-item-value">${item.value}</div>
+      </div>
+    </${item.href ? "a" : "div"}>`,
+    )
+    .join("");
+}
+
+/* ==========================================
+   RENDER — Footer
+   ========================================== */
+function renderFooter(data) {
+  document.getElementById("footerName").textContent = data.hero.superTitle;
+  document.getElementById("footerTagline").textContent = data.hero.title;
+  document.getElementById("footerYear").textContent = new Date().getFullYear();
+  document.getElementById("footerCopyName").textContent = data.hero.superTitle;
+
+  // Footer nav links
+  if (data.nav) {
+    document.getElementById("footerNav").innerHTML = data.nav
+      .map((item) => `<a href="${item.href}">${item.label}</a>`)
+      .join("");
+  }
+
+  // Footer social
+  if (data.socialLinks) {
+    document.getElementById("footerSocials").innerHTML = data.socialLinks
+      .map(
+        (s) =>
+          `<a href="${s.url}" target="_blank" aria-label="${s.platform}" title="${s.platform}"><i class="${s.icon}"></i></a>`,
       )
       .join("");
   }
 }
 
-function setupEducation(education) {
-  const educationTimeline = document.getElementById("education-timeline");
-  if (educationTimeline && education) {
-    educationTimeline.innerHTML = education
-      .map(
-        (edu) => `
-        <div class="education-card">
-          <div class="education-icon">🎓</div>
-          <div class="education-header">
-            <h3 class="education-degree">${edu.degree}</h3>
-            <div class="education-institution">${edu.institution}</div>
-            <div class="education-meta">
-              <span><i class="fas fa-map-marker-alt"></i> ${edu.location}</span>
-              <span><i class="fas fa-calendar-alt"></i> ${edu.duration}</span>
-            </div>
-          </div>
-          <div class="education-highlights">
-            ${edu.highlights
-              .map(
-                (highlight) => `
-              <span class="highlight-badge">
-                <i class="fas fa-check-circle"></i> ${highlight}
-              </span>
-            `
-              )
-              .join("")}
-          </div>
-        </div>
-      `
-      )
-      .join("");
+/* ==========================================
+   IMAGE SLIDER
+   ========================================== */
+function initSlider(sliderId, dotsId, total) {
+  if (total <= 1) return;
+
+  let current = 0;
+  const slider = document.getElementById(sliderId);
+  const dots = document.getElementById(dotsId)?.children;
+  if (!slider || !dots) return;
+
+  function update() {
+    slider.style.transform = `translateX(-${current * 100}%)`;
+    Array.from(dots).forEach((d, i) =>
+      d.classList.toggle("active", i === current),
+    );
   }
-}
-function setupProfiles(codingProfiles) {
-  const profileGrid = document.getElementById("profile-grid");
-  if (profileGrid && codingProfiles) {
-    profileGrid.innerHTML = codingProfiles
-      .map(
-        (profile) => `
-        <a href="${profile.url}" target="_blank" class="profile-card">
-          <div class="profile-header">
-            <div class="profile-icon"><img class="profile-icon-img" src="${
-              profile.icon
-            }" alt="${profile.name}'s icon"></div>
-            <div class="profile-info">
-              <h3>${profile.name}</h3>
-              <p class="profile-username">@${profile.username}</p>
-            </div>
-          </div>
-          <div class="profile-stats">
-            ${profile.stats
-              .map(
-                (stat) => `
-              <div class="stat">
-                <span class="stat-value">${stat.value}</span>
-                <span class="stat-label">${stat.label}</span>
-              </div>
-            `
-              )
-              .join("")}
-          </div>
-          <div class="profile-badges">
-            ${profile.badges
-              .map((badge) => `<span class="badge">${badge}</span>`)
-              .join("")}
-          </div>
-        </a>
-      `
-      )
-      .join("");
-  }
+
+  setInterval(() => {
+    current = (current + 1) % total;
+    update();
+  }, 3000);
+
+  Array.from(dots).forEach((d, i) => {
+    d.addEventListener("click", (e) => {
+      e.stopPropagation();
+      current = i;
+      update();
+    });
+  });
 }
 
-// Modal Functions
+/* ==========================================
+   PROJECT MODAL
+   ========================================== */
 function openProjectModal(project) {
   const modal = document.getElementById("projectModal");
-  const modalTitle = document.getElementById("modalTitle");
+  document.getElementById("modalTitle").textContent = project.title;
+
+  // Preview tab
   const previewContent = document.getElementById("previewContent");
-  const galleryContent = document.getElementById("galleryContent");
-
-  // Set modal title
-  modalTitle.textContent = project.title;
-
-  // Setup preview tab
   if (project.preview) {
     const videoId = extractYouTubeId(project.preview);
     if (videoId) {
-      previewContent.innerHTML = `
-        <iframe 
-          width="100%" 
-          height="500px" 
-          src="https://www.youtube.com/embed/${videoId}" 
-          frameborder="0" 
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-          allowfullscreen>
-        </iframe>
-      `;
+      previewContent.innerHTML = `<iframe width="100%" height="480" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:12px"></iframe>`;
     } else {
-      previewContent.innerHTML = `<p class="no-preview">Preview link format not supported</p>`;
+      previewContent.innerHTML = `<p class="no-preview">Preview format not supported</p>`;
     }
   } else {
     previewContent.innerHTML = `<p class="no-preview">No preview available for this project</p>`;
   }
 
-  // Setup gallery tab
-  let galleryHTML = "";
-  project.images.forEach((img, index) => {
-    galleryHTML += `
-      <div class="gallery-item">
-        <img src="${img}" alt="${project.title} - Image ${
-      index + 1
-    }" loading="lazy">
-      </div>
-    `;
-  });
-  galleryContent.innerHTML = galleryHTML;
+  // Gallery tab
+  document.getElementById("galleryContent").innerHTML = project.images
+    .map(
+      (img, i) =>
+        `<div class="gallery-item"><img src="${img}" alt="${project.title} – ${i + 1}" loading="lazy"></div>`,
+    )
+    .join("");
 
-  // Show modal
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
-
-  // Reset to preview tab if available, otherwise gallery
-  if (project.preview) {
-    switchTab("preview");
-  } else {
-    switchTab("gallery");
-  }
+  switchTab(project.preview ? "preview" : "gallery");
 }
 
 function closeProjectModal() {
-  const modal = document.getElementById("projectModal");
-  modal.style.display = "none";
+  document.getElementById("projectModal").style.display = "none";
   document.body.style.overflow = "auto";
 }
 
-function switchTab(tabName) {
-  const tabs = document.querySelectorAll(".tab-button");
-  const contents = document.querySelectorAll(".tab-content");
+function switchTab(name) {
+  document
+    .querySelectorAll(".tab-button")
+    .forEach((t) => t.classList.remove("active"));
+  document
+    .querySelectorAll(".tab-content")
+    .forEach((c) => c.classList.remove("active"));
 
-  tabs.forEach((tab) => tab.classList.remove("active"));
-  contents.forEach((content) => content.classList.remove("active"));
-
-  if (tabName === "preview") {
-    tabs[0].classList.add("active");
+  if (name === "preview") {
+    document.querySelectorAll(".tab-button")[0].classList.add("active");
     document.getElementById("previewTab").classList.add("active");
-  } else if (tabName === "gallery") {
-    tabs[1].classList.add("active");
+  } else {
+    document.querySelectorAll(".tab-button")[1].classList.add("active");
     document.getElementById("galleryTab").classList.add("active");
   }
 }
 
 function extractYouTubeId(url) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
+  const match = url.match(
+    /^.*(youtu\.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/,
+  );
   return match && match[2].length === 11 ? match[2] : null;
 }
 
-// Close modal when clicking outside
-window.addEventListener("click", (event) => {
-  const modal = document.getElementById("projectModal");
-  if (event.target === modal) {
-    closeProjectModal();
-  }
+// Close modal on outside click / escape
+window.addEventListener("click", (e) => {
+  if (e.target === document.getElementById("projectModal")) closeProjectModal();
+});
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") closeProjectModal();
 });
 
-// Close modal with Escape key
-window.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") {
-    closeProjectModal();
-  }
-});
-// EmailJS Configuration
-// Replace these with your actual EmailJS values
-const EMAILJS_PUBLIC_KEY = "961nxAGTq9j0Kki6g"; // Replace with your EmailJS public key
-const EMAILJS_SERVICE_ID = "service_d77xomw"; // Replace with your EmailJS service ID
-const EMAILJS_TEMPLATE_ID = "template_wymp3wm"; // Replace with your EmailJS template ID
+/* ==========================================
+   SCROLL EFFECTS
+   ========================================== */
+function setupScrollEffects() {
+  const header = document.getElementById("header");
+  const floatingBtn = document.getElementById("floatingResumeBtn");
+  const backToTop = document.getElementById("backToTop");
 
-// Initialize EmailJS
-emailjs.init(EMAILJS_PUBLIC_KEY);
+  // Intersection Observer for scroll-reveal
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+        }
+      });
+    },
+    { threshold: 0.1, rootMargin: "0px 0px -40px 0px" },
+  );
 
-function sendMail(event) {
-  event.preventDefault();
-  console.log("sendMail function called!");
-
-  const form = document.getElementById("contactForm");
-  const name = form.name.value;
-  const email = form.email.value;
-  const message = form.message.value;
-
-  // Validate form
-  if (!name || !email || !message) {
-    alert("Please fill in all fields.");
-    return false;
-  } else if (!/\S+@\S+\.\S+/.test(email)) {
-    alert("Please enter a valid email address.");
-    return false;
-  } else if (name.length > 100) {
-    alert("Name is too long. Please limit to 100 characters.");
-    return false;
-  }
-
-  // Show loading state
-  const submitBtn = form.querySelector('button[type="submit"]');
-  const originalText = submitBtn.textContent;
-  submitBtn.textContent = "Sending...";
-  submitBtn.disabled = true;
-
-  // Send email using EmailJS
-  emailjs
-    .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
-    .then(() => {
-      console.log("Email sent successfully!");
-      alert("Message sent successfully! Thank you for reaching out.");
-      form.reset();
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
-    })
-    .catch((error) => {
-      console.error("EmailJS Error:", error);
-      alert("Failed to send message. Error: " + JSON.stringify(error));
-      submitBtn.textContent = originalText;
-      submitBtn.disabled = false;
+  document
+    .querySelectorAll(
+      ".reveal, .project-card, .skill-card, .profile-card, .timeline-card",
+    )
+    .forEach((el) => {
+      observer.observe(el);
     });
 
-  return false;
+  // Active nav link on scroll
+  const sections = document.querySelectorAll("section[id]");
+
+  function onScroll() {
+    const scrollY = window.scrollY;
+
+    // Header solid on scroll
+    header.classList.toggle("scrolled", scrollY > 60);
+
+    // Floating buttons
+    if (floatingBtn) floatingBtn.classList.toggle("visible", scrollY > 400);
+    if (backToTop) backToTop.classList.toggle("visible", scrollY > 600);
+
+    // Active nav link
+    sections.forEach((section) => {
+      const top = section.offsetTop - 100;
+      const height = section.offsetHeight;
+      const id = section.getAttribute("id");
+      const link = document.querySelector(`.nav-links a[href="#${id}"]`);
+      if (link) {
+        link.classList.toggle(
+          "active",
+          scrollY >= top && scrollY < top + height,
+        );
+      }
+    });
+  }
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll(); // run once on load
+
+  // Back to top
+  if (backToTop) {
+    backToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
 }
 
-// Wait for DOM to be fully loaded
-document.addEventListener("DOMContentLoaded", function () {
-  const contactForm = document.getElementById("contactForm");
+/* ==========================================
+   MOBILE MENU
+   ========================================== */
+function setupMobileMenu(data) {
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+  const mobileNavLinks = document.getElementById("mobileNavLinks");
 
-  if (contactForm) {
-    console.log("Contact form found, setting up submit handler.");
-    contactForm.addEventListener("submit", sendMail);
-  } else {
-    console.log("Contact form not found.");
+  if (data.nav) {
+    mobileNavLinks.innerHTML = data.nav
+      .map((item) => `<li><a href="${item.href}">${item.label}</a></li>`)
+      .join("");
   }
-});
+
+  hamburger.addEventListener("click", () => {
+    hamburger.classList.toggle("active");
+    mobileMenu.classList.toggle("active");
+    document.body.style.overflow = mobileMenu.classList.contains("active")
+      ? "hidden"
+      : "";
+  });
+
+  // Close on link click
+  mobileNavLinks.addEventListener("click", (e) => {
+    if (e.target.tagName === "A") {
+      hamburger.classList.remove("active");
+      mobileMenu.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+}
+
+/* ==========================================
+   CONTACT FORM — EmailJS
+   ========================================== */
+function setupContactForm() {
+  const form = document.getElementById("contactForm");
+  if (!form) return;
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name || !email || !message) {
+      showToast("Please fill in all fields.", "error");
+      return;
+    }
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      showToast("Please enter a valid email address.", "error");
+      return;
+    }
+
+    const btn = form.querySelector('button[type="submit"]');
+    const btnSpan = btn.querySelector("span");
+    const originalText = btnSpan.textContent;
+    btnSpan.textContent = "Sending...";
+    btn.disabled = true;
+    btn.style.opacity = "0.7";
+
+    emailjs
+      .sendForm(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, form)
+      .then(() => {
+        showToast("Message sent successfully! Thank you.", "success");
+        form.reset();
+      })
+      .catch((err) => {
+        console.error("EmailJS Error:", err);
+        showToast("Failed to send. Please try again.", "error");
+      })
+      .finally(() => {
+        btnSpan.textContent = originalText;
+        btn.disabled = false;
+        btn.style.opacity = "1";
+      });
+  });
+}
+
+/* ==========================================
+   TOAST NOTIFICATION
+   ========================================== */
+function showToast(message, type = "success") {
+  const existing = document.querySelector(".toast");
+  if (existing) existing.remove();
+
+  const toast = document.createElement("div");
+  toast.className = `toast toast-${type}`;
+  toast.innerHTML = `
+    <i class="fas ${type === "success" ? "fa-check-circle" : "fa-exclamation-circle"}"></i>
+    <span>${message}</span>
+  `;
+  toast.style.cssText = `
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    padding: 14px 24px;
+    background: ${type === "success" ? "#065f46" : "#7f1d1d"};
+    color: #fff;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 99999;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    border: 1px solid ${type === "success" ? "rgba(16,185,129,0.3)" : "rgba(239,68,68,0.3)"};
+  `;
+
+  document.body.appendChild(toast);
+  requestAnimationFrame(() => {
+    toast.style.opacity = "1";
+    toast.style.transform = "translateX(-50%) translateY(0)";
+  });
+
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    toast.style.transform = "translateX(-50%) translateY(20px)";
+    setTimeout(() => toast.remove(), 400);
+  }, 4000);
+}

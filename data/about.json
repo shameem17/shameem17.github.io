@@ -2,12 +2,80 @@
     "resumeUrl": "https://drive.google.com/uc?export=download&id=1ZCQh2TNdm58bH4qkWtBuL3oQfHA0645q",
     "hero": {
         "superTitle": "Shameem Ahammed",
-        "title": "Senior Software Engineer - iOS",
-        "heroDescription": "Senior iOS Developer with a passion for crafting scalable, high-performance applications and intuitive user experiences using UIKit and SwiftUI."
+        "title": "Senior Software Engineer — iOS",
+        "heroDescription": "Senior iOS Developer with a passion for crafting scalable, high-performance applications and intuitive user experiences using UIKit and SwiftUI.",
+        "taglines": [
+            "Swift",
+            "SwiftUI",
+            "UIKit",
+            "iOS"
+        ]
     },
     "profileImage": "images/profile.png",
     "title": "My Journey in iOS Development",
     "about": "I am a passionate Senior iOS Software Engineer with over 2.5 years of professional experience, currently working at Mir Info System and contributing to high-impact projects such as Skitto, Grameenphone. I specialize in Swift and SwiftUI, with solid experience in Objective-C, delivering high-quality, scalable mobile applications.<br><br>I have hands-on experience integrating Firebase, Alamofire, and other modern frameworks and third-party SDKs to build robust, data-driven apps. My development approach focuses on clean architecture, smooth performance, and intuitive user experiences. Beyond coding, I am driven by continuous learning and a passion for solving real-world problems through elegant, maintainable, and impactful mobile solutions.",
+    "socialLinks": [
+        {
+            "platform": "GitHub",
+            "url": "https://github.com/shameem17",
+            "icon": "fab fa-github"
+        },
+        {
+            "platform": "LinkedIn",
+            "url": "https://linkedin.com/in/shameem22",
+            "icon": "fab fa-linkedin"
+        },
+        {
+            "platform": "Twitter",
+            "url": "https://twitter.com/shameem_22",
+            "icon": "fab fa-x-twitter"
+        },
+        {
+            "platform": "Facebook",
+            "url": "https://www.facebook.com/shameem.ahammed.94",
+            "icon": "fab fa-facebook"
+        },
+        {
+            "platform": "Instagram",
+            "url": "https://instagram.com/shameem_22",
+            "icon": "fab fa-instagram"
+        }
+    ],
+    "contact": {
+        "email": "shameem105455@gmail.com",
+        "phone": "+880 1788-381680",
+        "location": "Dhaka, Bangladesh"
+    },
+    "nav": [
+        {
+            "label": "About",
+            "href": "#about"
+        },
+        {
+            "label": "Experience",
+            "href": "#experience"
+        },
+        {
+            "label": "Projects",
+            "href": "#projects"
+        },
+        {
+            "label": "Skills",
+            "href": "#skills"
+        },
+        {
+            "label": "Education",
+            "href": "#education"
+        },
+        {
+            "label": "Profiles",
+            "href": "#coding-profile"
+        },
+        {
+            "label": "Contact",
+            "href": "#contact"
+        }
+    ],
     "experience": [
         {
             "position": "iOS Developer",
@@ -26,7 +94,14 @@
             "position": "Senior Software Engineer - iOS",
             "company": "Mir Info System Ltd.",
             "location": "Dhaka, Bangladesh",
-            "duration": "Oct 2023 - Present",
+            "duration": "Jan 2026 - Present",
+            "highlights": []
+        },
+        {
+            "position": "Software Engineer",
+            "company": "Mir Info System Ltd.",
+            "location": "Dhaka, Bangladesh",
+            "duration": "Oct 2023 - Jan 2026",
             "highlights": [
                 "iOS",
                 "EDGE AI Training"
@@ -208,15 +283,11 @@
             "url": "https://github.com/shameem17",
             "stats": [
                 {
-                    "value": "50+",
+                    "value": "40+",
                     "label": "Repos"
                 },
                 {
-                    "value": "1K+",
-                    "label": "Commits"
-                },
-                {
-                    "value": "100+",
+                    "value": "10+",
                     "label": "Stars"
                 }
             ],
@@ -234,7 +305,7 @@
             "url": "https://codeforces.com/profile/shameem17",
             "stats": [
                 {
-                    "value": "1600+",
+                    "value": "1219+",
                     "label": "Rating"
                 },
                 {
@@ -242,7 +313,7 @@
                     "label": "Problems"
                 },
                 {
-                    "value": "Specialist",
+                    "value": "pupil",
                     "label": "Rank"
                 }
             ],

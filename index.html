@@ -4,222 +4,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shameem Ahammed - Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <title>Shameem Ahammed — Portfolio</title>
+    <meta name="description" content="Senior iOS Software Engineer portfolio — Swift, SwiftUI, UIKit">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <header>
-        <nav>
-            <div class="logo">
-                Shameem Ahammed
+    <!-- ===== Loader ===== -->
+    <div id="loader" class="loader">
+        <div class="loader-spinner"></div>
+    </div>
 
-                <!-- 👇 Add this social links block under your logo -->
-                <div class="social-links">
-                    <a href="https://github.com/shameem17" target="_blank" aria-label="GitHub">
-                        <i class="fab fa-github"></i>
-                    </a>
-                    <a href="https://linkedin.com/in/shameem22" target="_blank" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="https://twitter.com/shameem_22" target="_blank" aria-label="Twitter">
-                        <i class="fab fa-x-twitter"></i>
-                    </a>
-                    <a href="mailto:shameem105455@gmail.com" aria-label="Email">
-                        <i class="fas fa-envelope"></i>
-                    </a>
-                </div>
+    <!-- ===== Header / Nav ===== -->
+    <header id="header">
+        <nav>
+            <a href="#" class="nav-logo" id="navLogo">SA</a>
+
+            <ul id="navLinks" class="nav-links"></ul>
+
+            <div class="nav-right">
+                <a href="#" id="navResumeBtn" class="nav-resume-btn" target="_blank">
+                    <i class="fas fa-download"></i> <span>Resume</span>
+                </a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#experience">Experience</a></li>
-                <li><a href="#projects">Work</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#education">Education</a></li>
-                <li><a href="#coding-profile">Coding Profile</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="https://drive.google.com/uc?export=download&id=1ZCQh2TNdm58bH4qkWtBuL3oQfHA0645q"
-                        target="_blank" class="resume-nav-btn">
-                        <i class="fas fa-download"></i> Resume
-                    </a></li>
-            </ul>
         </nav>
     </header>
 
-    <section class="hero">
+    <!-- ===== Mobile Menu Overlay ===== -->
+    <div class="mobile-menu" id="mobileMenu">
+        <ul id="mobileNavLinks"></ul>
+    </div>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-grid"></div>
         <div class="hero-content">
             <div class="hero-text">
-                <h1 id="superTitle"></h1>
-                <h3 id="heroTitle"></h3>
-                <p id="heroDescription" style="text-align: justify;"></p>
-                <div class="cta-buttons">
-                    <a href="#projects" class="btn-primary">View My Work</a>
-                    <a href="#contact" class="btn-secondary">Get In Touch</a>
+                <div class="hero-badge" id="heroBadge">
+                    <span class="badge-dot"></span>
+                    <span>Available for opportunities</span>
+                </div>
+                <h1 id="superTitle" class="hero-name"></h1>
+                <p id="heroTitle" class="hero-role"></p>
+                <p id="heroDescription" class="hero-desc"></p>
+                <div class="hero-taglines" id="heroTaglines"></div>
+                <div class="hero-cta">
+                    <a href="#projects" class="btn btn-primary">
+                        <span>View My Work</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-outline">
+                        <span>Get In Touch</span>
+                    </a>
+                </div>
+                <div class="hero-socials" id="heroSocials"></div>
+            </div>
+            <div class="hero-visual">
+                <div class="hero-image-frame">
+                    <div class="hero-image-glow"></div>
+                    <img id="profileImage" alt="Profile" class="hero-img">
                 </div>
             </div>
-            <div class="hero-image">
-                <div class="hero-image-wrapper">
-                    <div class="hero-image-inner">
-                        <img id="profileImage" alt="Profile Image"
-                            style="width: 100%; height: 100%; object-fit: cover; border-radius: 30px;">
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
         </div>
     </section>
 
-    <section id="about">
-        <div class="section-header">
-            <div class="section-label">About Me</div>
-            <h2 id="aboutTitle" class="section-title"></h2>
-            <p style="text-align: justify;" id="aboutText" class="section-description">Loading ....</p>
-        </div>
-    </section>
-
-    <section id="experience">
-        <div class="section-header">
-            <div class="section-label">Professional Journey</div>
-            <h2 class="section-title">Work Experience</h2>
-            <p class="section-description">My professional journey in iOS Development and Software Engineering.</p>
-        </div>
-        <div id="experience-timeline" class="experience-timeline"></div>
-    </section>
-
-    <section id="projects">
-        <div class="section-header">
-            <div class="section-label">Featured Work</div>
-            <h2 class="section-title">Work Highlights</h2>
-        </div>
-        <div class="projects-grid" id="projectsGrid"></div>
-    </section>
-
-    <section id="skills">
-        <div class="section-header">
-            <div class="section-label">Expertise</div>
-            <h2 class="section-title">Skills & Technologies</h2>
-        </div>
-        <div id="skills-grid" class="skills-grid"></div>
-    </section>
-
-    <section id="education">
-        <div class="section-header">
-            <div class="section-label">Education</div>
-            <h2 class="section-title">Academic Background</h2>
-            <p class="section-description">My educational journey in computer science and engineering.</p>
-        </div>
-        <div id="education-timeline" class="education-timeline"></div>
-    </section>
-
-    <section id="coding-profile">
-        <div class="section-header">
-            <div class="section-label">Coding Profile</div>
-            <h2 class="section-title">Where I Code & Compete</h2>
-            <p class="section-description">Active on various coding platforms, constantly learning and sharing knowledge
-                with the developer community.</p>
-        </div>
-        <div id="profile-grid" class="profile-grid"></div>
-    </section>
-
-    <section id="contact">
-        <div class="contact-container">
+    <!-- ===== About ===== -->
+    <section id="about" class="section">
+        <div class="container">
             <div class="section-header">
-                <div class="section-label">Get In Touch</div>
-                <h2 class="section-title">Let's Work Together</h2>
-                <p class="section-description">Have a project in mind? Let's discuss how we can bring your ideas to
-                    life.</p>
+                <span class="section-label">About Me</span>
+                <h2 id="aboutTitle" class="section-title"></h2>
             </div>
-            <div class="contact-form">
-                <form id="contactForm">
-                    <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn-primary">Send Message</button>
-                </form>
+            <div class="about-content">
+                <p id="aboutText" class="about-text"></p>
             </div>
         </div>
     </section>
 
-    <footer>
-        <div class="footer-container">
-            <div class="footer-main">
-                <!-- Left: About & Contact Info -->
-                <div class="footer-info">
-                    <h3 class="footer-name">Shameem Ahammed</h3>
-                    <!-- <p id="heroDescription" style="text-align: justify;"></p> -->
-                    <p class="footer-tagline">Senior Software Engineer - iOS</p>
-                    <p><i class="fas fa-phone"></i> +880 1788-381680</p>
-                    <p><i class="fas fa-envelope"></i> shameem105455@gmail.com</p>
-                    <p><i class="fas fa-map-marker-alt"></i> Dhaka, Bangladesh</p>
-                </div>
+    <!-- ===== Experience ===== -->
+    <section id="experience" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Professional Journey</span>
+                <h2 class="section-title">Work Experience</h2>
+            </div>
+            <div id="experience-timeline" class="timeline"></div>
+        </div>
+    </section>
 
-                <!-- Middle: Quick Links -->
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <a href="#about">About Me</a>
-                    <a href="#experience">Experience</a>
-                    <a href="#projects">Projects</a>
-                    <a href="#skills">Skills</a>
-                    <a href="#education">Education</a>
-                    <a href="#coding-profile">Coding Profile</a>
-                    <a href="#contact">Contact</a>
-                </div>
+    <!-- ===== Projects ===== -->
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Featured Work</span>
+                <h2 class="section-title">Projects</h2>
+            </div>
+            <div class="projects-grid" id="projectsGrid"></div>
+        </div>
+    </section>
 
-                <!-- Right: Social Connect -->
-                <div class="footer-connect">
-                    <h4>Connect With Me</h4>
-                    <div class="bottom-social-links">
-                        <a href="https://github.com/shameem17" target="_blank" aria-label="GitHub" title="GitHub">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://linkedin.com/in/shameem22" target="_blank" aria-label="LinkedIn"
-                            title="LinkedIn">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://twitter.com/shameem_22" target="_blank" aria-label="Twitter" title="Twitter">
-                            <i class="fab fa-x-twitter"></i>
-                        </a>
-                        <a href="mailto:shameem105455@gmail.com" aria-label="Email" title="Email">
-                            <i class="fas fa-envelope"></i>
-                        </a>
-                        <a href="https://www.facebook.com/shameem.ahammed.94" target="_blank" aria-label="Facebook"
-                            title="Facebook">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="https://instagram.com/shameem_22" target="_blank" aria-label="Instagram"
-                            title="Instagram">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                    </div>
+    <!-- ===== Skills ===== -->
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Expertise</span>
+                <h2 class="section-title">Skills & Technologies</h2>
+            </div>
+            <div id="skills-grid" class="skills-grid"></div>
+        </div>
+    </section>
+
+    <!-- ===== Education ===== -->
+    <section id="education" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Education</span>
+                <h2 class="section-title">Academic Background</h2>
+            </div>
+            <div id="education-timeline" class="timeline"></div>
+        </div>
+    </section>
+
+    <!-- ===== Coding Profiles ===== -->
+    <section id="coding-profile" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Competitive Programming</span>
+                <h2 class="section-title">Where I Code & Compete</h2>
+            </div>
+            <div id="profile-grid" class="profile-grid"></div>
+        </div>
+    </section>
+
+    <!-- ===== Contact ===== -->
+    <section id="contact" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Get In Touch</span>
+                <h2 class="section-title">Let's Work Together</h2>
+                <p class="section-subtitle">Have a project in mind? Let's discuss how we can bring your ideas to life.
+                </p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-info" id="contactInfo"></div>
+                <div class="contact-form-wrapper">
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell me about your project..." rows="5"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Bottom: Copyright & Links -->
-            <div class="footer-center">
-                <p>&copy; 2025 Shameem Ahammed. Made with <span class="footer-heart">♥</span> in Bangladesh</p>
+    <!-- ===== Footer ===== -->
+    <footer id="footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h3 id="footerName"></h3>
+                    <p id="footerTagline"></p>
+                </div>
+                <div class="footer-nav" id="footerNav"></div>
+                <div class="footer-social" id="footerSocials"></div>
+            </div>
+            <div class="footer-divider"></div>
+            <div class="footer-bottom">
+                <p>&copy; <span id="footerYear"></span> <span id="footerCopyName"></span>. Crafted with
+                    <span class="heart">♥</span> in Bangladesh
+                </p>
             </div>
         </div>
     </footer>
 
-    <!-- Floating Resume Download Button -->
-    <a href="https://drive.google.com/uc?export=download&id=1ZCQh2TNdm58bH4qkWtBuL3oQfHA0645q" target="_blank"
-        class="floating-resume-btn" title="Download Resume" aria-label="Download Resume">
-        <i class="fas fa-download"></i>
-        <span class="btn-text">Resume</span>
+    <!-- ===== Floating Resume Button ===== -->
+    <a href="#" id="floatingResumeBtn" class="floating-resume-btn" target="_blank" title="Download Resume">
+        <i class="fas fa-file-download"></i>
     </a>
 
-    <!-- Project Modal -->
+    <!-- ===== Back to Top ===== -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- ===== Project Modal ===== -->
     <div id="projectModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -239,7 +234,7 @@
             <div class="modal-body">
                 <div id="previewTab" class="tab-content active">
                     <div id="previewContent" class="preview-container">
-                        <p class="no-preview">No preview available for this project</p>
+                        <p class="no-preview">No preview available</p>
                     </div>
                 </div>
                 <div id="galleryTab" class="tab-content">
@@ -251,11 +246,6 @@
 
     <!-- EmailJS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-    <script>
-        // Auto-sliding image carousel for each project
-
-    </script>
     <script src="script.js"></script>
 </body>
 
