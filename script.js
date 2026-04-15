@@ -76,9 +76,17 @@ function renderHero(data) {
   const { hero, profileImage, socialLinks } = data;
 
   document.getElementById("superTitle").innerHTML = hero.superTitle;
-  document.getElementById("heroTitle").innerHTML = hero.title;
   document.getElementById("heroDescription").innerHTML = hero.heroDescription;
-  document.getElementById("profileImage").src = profileImage;
+
+  // Set profile image as blurred hero background
+  const heroBg = document.getElementById("heroBgImage");
+  if (heroBg && profileImage) {
+    heroBg.style.backgroundImage = `url('${profileImage}')`;
+  }
+
+  // Typing animation for role
+  const typingPhrases = [hero.title, ...(hero.taglines || [])];
+  initTypingAnimation("heroTitle", typingPhrases);
 
   // Taglines
   if (hero.taglines) {
@@ -96,6 +104,60 @@ function renderHero(data) {
       )
       .join("");
   }
+}
+
+/* ==========================================
+   TYPING ANIMATION
+   ========================================== */
+function initTypingAnimation(elementId, phrases) {
+  const el = document.getElementById(elementId);
+  if (!el || !phrases.length) return;
+
+  let phraseIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+  const typeSpeed = 80;
+  const deleteSpeed = 40;
+  const pauseAfterType = 2000;
+  const pauseAfterDelete = 500;
+
+  // Add cursor element
+  el.innerHTML = `<span class="typing-text"></span><span class="typing-cursor"></span>`;
+  const textEl = el.querySelector(".typing-text");
+
+  function tick() {
+    const currentPhrase = phrases[phraseIndex];
+
+    if (!isDeleting) {
+      // Typing
+      textEl.textContent = currentPhrase.substring(0, charIndex + 1);
+      charIndex++;
+
+      if (charIndex === currentPhrase.length) {
+        // Finished typing — pause, then start deleting
+        isDeleting = true;
+        setTimeout(tick, pauseAfterType);
+        return;
+      }
+      setTimeout(tick, typeSpeed);
+    } else {
+      // Deleting
+      textEl.textContent = currentPhrase.substring(0, charIndex - 1);
+      charIndex--;
+
+      if (charIndex === 0) {
+        // Finished deleting — move to next phrase
+        isDeleting = false;
+        phraseIndex = (phraseIndex + 1) % phrases.length;
+        setTimeout(tick, pauseAfterDelete);
+        return;
+      }
+      setTimeout(tick, deleteSpeed);
+    }
+  }
+
+  // Start after a short delay to let the fadeInUp animation play
+  setTimeout(tick, 800);
 }
 
 /* ==========================================

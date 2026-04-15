@@ -285,9 +285,35 @@ header.scrolled {
   min-height: 100vh;
   display: flex;
   align-items: center;
+  justify-content: center;
   position: relative;
   overflow: hidden;
   padding: 120px 24px 80px;
+}
+
+/* Blurred profile image background */
+.hero-bg-image {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  filter: blur(16px) brightness(0.7) saturate(1.2);
+  transform: scale(1.08);
+  z-index: 0;
+}
+
+/* Dark overlay on top of blurred image */
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 15, 0.15) 0%,
+    rgba(10, 10, 15, 0.35) 60%,
+    var(--bg-primary) 100%
+  );
+  z-index: 1;
 }
 
 .hero-bg-grid {
@@ -298,6 +324,7 @@ header.scrolled {
     linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   background-size: 60px 60px;
   mask-image: radial-gradient(ellipse 60% 60% at 50% 40%, black, transparent);
+  z-index: 2;
 }
 
 .hero::before {
@@ -311,6 +338,7 @@ header.scrolled {
   background: radial-gradient(circle, var(--accent-glow), transparent 70%);
   filter: blur(80px);
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero::after {
@@ -328,18 +356,26 @@ header.scrolled {
   );
   filter: blur(80px);
   pointer-events: none;
+  z-index: 2;
 }
 
 .hero-content {
   max-width: var(--container-width);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px;
+  display: flex;
+  justify-content: center;
   align-items: center;
   position: relative;
-  z-index: 1;
+  z-index: 3;
   width: 100%;
+}
+
+.hero-text {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 720px;
 }
 
 .hero-badge {
@@ -400,15 +436,37 @@ header.scrolled {
   color: var(--accent-light);
   margin-bottom: 20px;
   animation: fadeInUp 0.6s var(--ease) 0.2s both;
+  min-height: 1.4em;
+}
+
+.hero-role .typing-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background: var(--accent-light);
+  margin-left: 2px;
+  vertical-align: text-bottom;
+  animation: blink-cursor 0.75s step-end infinite;
+}
+
+@keyframes blink-cursor {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 .hero-desc {
   font-size: 16px;
   color: var(--text-secondary);
   line-height: 1.8;
-  max-width: 520px;
+  max-width: 560px;
   margin-bottom: 24px;
   animation: fadeInUp 0.6s var(--ease) 0.3s both;
+  text-align: center;
 }
 
 .hero-taglines {
@@ -417,6 +475,7 @@ header.scrolled {
   gap: 8px;
   margin-bottom: 36px;
   animation: fadeInUp 0.6s var(--ease) 0.35s both;
+  justify-content: center;
 }
 
 .hero-taglines .tagline {
@@ -462,53 +521,6 @@ header.scrolled {
   border-color: var(--border-accent);
   background: rgba(99, 102, 241, 0.08);
   transform: translateY(-3px);
-}
-
-/* Hero Visual */
-.hero-visual {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  animation: fadeInUp 0.8s var(--ease) 0.3s both;
-}
-
-.hero-image-frame {
-  position: relative;
-  width: 380px;
-  height: 380px;
-}
-
-.hero-image-glow {
-  position: absolute;
-  inset: -20px;
-  background: var(--accent-gradient);
-  border-radius: 50%;
-  opacity: 0.15;
-  filter: blur(40px);
-  animation: glow-pulse 4s ease-in-out infinite;
-}
-
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 0.1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.2;
-    transform: scale(1.05);
-  }
-}
-
-.hero-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 3px solid var(--border);
-  position: relative;
-  z-index: 1;
 }
 
 /* Scroll indicator */
@@ -1503,39 +1515,6 @@ footer {
    RESPONSIVE
    ========================================== */
 @media (max-width: 1024px) {
-  .hero-content {
-    grid-template-columns: 1fr;
-    gap: 48px;
-    text-align: center;
-  }
-
-  .hero-desc {
-    max-width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-taglines {
-    justify-content: center;
-  }
-
-  .hero-cta {
-    justify-content: center;
-  }
-
-  .hero-socials {
-    justify-content: center;
-  }
-
-  .hero-visual {
-    order: -1;
-  }
-
-  .hero-image-frame {
-    width: 280px;
-    height: 280px;
-  }
-
   .footer-top {
     grid-template-columns: 1fr;
     gap: 32px;
