@@ -33,6 +33,7 @@ async function initApp() {
     setupScrollEffects();
     setupMobileMenu(data);
     setupContactForm();
+    setupFloatingSocial(data.socialLinks);
 
     // Hide loader
     setTimeout(() => {
@@ -518,6 +519,7 @@ function setupScrollEffects() {
   const header = document.getElementById("header");
   const floatingBtn = document.getElementById("floatingResumeBtn");
   const backToTop = document.getElementById("backToTop");
+  const floatingSocial = document.getElementById("floatingSocial");
 
   // Intersection Observer for scroll-reveal
   const observer = new IntersectionObserver(
@@ -551,6 +553,8 @@ function setupScrollEffects() {
     // Floating buttons
     if (floatingBtn) floatingBtn.classList.toggle("visible", scrollY > 400);
     if (backToTop) backToTop.classList.toggle("visible", scrollY > 600);
+    if (floatingSocial)
+      floatingSocial.classList.toggle("visible", scrollY > 400);
 
     // Active nav link
     sections.forEach((section) => {
@@ -655,6 +659,76 @@ function setupContactForm() {
         btn.disabled = false;
         btn.style.opacity = "1";
       });
+  });
+}
+
+/* ==========================================
+   FLOATING SOCIAL WIDGET
+   ========================================== */
+function setupFloatingSocial(socialLinks) {
+  if (!socialLinks || !socialLinks.length) return;
+
+  const widget = document.getElementById("floatingSocial");
+  const toggle = document.getElementById("floatingSocialToggle");
+  const iconEl = document.getElementById("floatingSocialIcon");
+  const labelEl = document.getElementById("floatingSocialLabel");
+  const listEl = document.getElementById("floatingSocialList");
+  if (!widget || !toggle) return;
+
+  // Build the expanded list
+  listEl.innerHTML = socialLinks
+    .map(
+      (s) =>
+        `<a href="${s.url}" target="_blank" aria-label="${s.platform}"><i class="${s.icon}"></i> ${s.platform}</a>`,
+    )
+    .join("");
+
+  // Cycling animation state
+  let currentIndex = 0;
+  let cycleTimer = null;
+
+  function showPlatform(index) {
+    const social = socialLinks[index];
+    iconEl.innerHTML = `<i class="${social.icon}"></i>`;
+    labelEl.innerHTML = `<span>${social.platform}</span>`;
+  }
+
+  function startCycle() {
+    showPlatform(currentIndex);
+    cycleTimer = setInterval(() => {
+      currentIndex = (currentIndex + 1) % socialLinks.length;
+      showPlatform(currentIndex);
+    }, 2500);
+  }
+
+  function stopCycle() {
+    if (cycleTimer) {
+      clearInterval(cycleTimer);
+      cycleTimer = null;
+    }
+  }
+
+  startCycle();
+
+  // Toggle open/close
+  toggle.addEventListener("click", () => {
+    const isOpen = widget.classList.toggle("open");
+    if (isOpen) {
+      stopCycle();
+      // Show a generic icon when open
+      iconEl.innerHTML = `<i class="fas fa-times"></i>`;
+      labelEl.innerHTML = `<span>Close</span>`;
+    } else {
+      startCycle();
+    }
+  });
+
+  // Close when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!widget.contains(e.target) && widget.classList.contains("open")) {
+      widget.classList.remove("open");
+      startCycle();
+    }
   });
 }
 

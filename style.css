@@ -1369,6 +1369,188 @@ footer {
 }
 
 /* ==========================================
+   FLOATING SOCIAL WIDGET
+   ========================================== */
+.floating-social {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 900;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s var(--ease);
+}
+
+.floating-social.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.floating-social-toggle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 50px;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s var(--ease);
+  white-space: nowrap;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+}
+
+.floating-social-toggle:hover {
+  border-color: var(--border-accent);
+  background: var(--bg-card-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35);
+}
+
+.floating-social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: var(--accent-gradient);
+  border-radius: 50%;
+  font-size: 14px;
+  color: #fff;
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease);
+}
+
+.floating-social-toggle:hover .floating-social-icon {
+  transform: scale(1.1);
+}
+
+.floating-social-label {
+  color: var(--text-secondary);
+  font-size: 13px;
+  transition: color 0.3s var(--ease);
+  overflow: hidden;
+}
+
+.floating-social-toggle:hover .floating-social-label {
+  color: var(--text-primary);
+}
+
+/* Expand animation for label text */
+.floating-social-label span {
+  display: inline-block;
+  animation: fadeSlideIn 0.35s var(--ease) both;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Social list (expanded) */
+.floating-social-list {
+  position: absolute;
+  bottom: calc(100% + 10px);
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: all 0.3s var(--ease);
+  pointer-events: none;
+}
+
+.floating-social.open .floating-social-list {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.floating-social-list a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s var(--ease);
+  transform: translateY(8px);
+  opacity: 0;
+  animation: none;
+}
+
+.floating-social.open .floating-social-list a {
+  animation: socialItemIn 0.3s var(--ease) both;
+}
+
+.floating-social.open .floating-social-list a:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.floating-social.open .floating-social-list a:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.floating-social.open .floating-social-list a:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.floating-social.open .floating-social-list a:nth-child(4) {
+  animation-delay: 0.14s;
+}
+.floating-social.open .floating-social-list a:nth-child(5) {
+  animation-delay: 0.18s;
+}
+.floating-social.open .floating-social-list a:nth-child(6) {
+  animation-delay: 0.22s;
+}
+
+@keyframes socialItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.floating-social-list a:hover {
+  border-color: var(--border-accent);
+  color: var(--accent-light);
+  background: var(--bg-card-hover);
+  transform: translateX(4px);
+}
+
+.floating-social-list a i {
+  font-size: 16px;
+  width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ==========================================
    MODAL
    ========================================== */
 .modal {
