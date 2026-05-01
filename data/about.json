@@ -324,5 +324,27 @@
                 "Problem Solving"
             ]
         }
+    ],
+    "chatbot": [
+        {
+            "question": "Who are you?",
+            "answer": "Hi! I'm Shameem Ahammed, a Senior iOS Software Engineer with over 2.5 years of professional experience. I specialize in Swift, SwiftUI, and UIKit, building scalable and high-performance mobile applications."
+        },
+        {
+            "question": "What is the purpose of this portfolio?",
+            "answer": "This portfolio showcases my professional journey, projects, and technical skills as an iOS developer. It's designed to give recruiters, collaborators, and fellow developers a quick overview of my work and expertise."
+        },
+        {
+            "question": "Where are you working?",
+            "answer": "I'm currently working at Mir Info System Ltd., where I contribute to high-impact projects including the Skitto iOS app (a Grameenphone product), based in Dhaka, Bangladesh."
+        },
+        {
+            "question": "What is your role?",
+            "answer": "I'm a Senior Software Engineer — iOS. I lead technical architecture for core iOS projects, mentor junior developers, optimize CI/CD pipelines, and drive SwiftUI & Combine adoption for new feature development."
+        },
+        {
+            "question": "How can I contact you?",
+            "answer": "You can reach me via email at shameem105455@gmail.com, call me at +880 1788-381680, or connect with me on LinkedIn (linkedin.com/in/shameem22). I'm also available on GitHub (@shameem17)."
+        }
     ]
 }

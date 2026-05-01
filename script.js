@@ -34,6 +34,7 @@ async function initApp() {
     setupMobileMenu(data);
     setupContactForm();
     setupFloatingSocial(data.socialLinks);
+    setupAIChat(data.chatbot);
 
     // Hide loader
     setTimeout(() => {
@@ -66,7 +67,6 @@ function renderNav(data) {
   // Resume button
   if (data.resumeUrl) {
     document.getElementById("navResumeBtn").href = data.resumeUrl;
-    document.getElementById("floatingResumeBtn").href = data.resumeUrl;
   }
 }
 
@@ -455,7 +455,7 @@ function openProjectModal(project) {
 
   // Preview tab
   const previewContent = document.getElementById("previewContent");
-  let previewHTML = '';
+  let previewHTML = "";
   if (project.preview) {
     const videoId = extractYouTubeId(project.preview);
     if (videoId) {
@@ -467,17 +467,30 @@ function openProjectModal(project) {
     previewHTML = `<p class="no-preview">No preview available for this project</p>`;
   }
 
-  const tagsHTML = project.tags ? project.tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
-  const challengeHTML = project.challenge ? `<div class="modal-challenge"><i class="fas fa-lightbulb"></i> <strong>Behind the Code:</strong> ${project.challenge}</div>` : '';
-  const linksHTML = project.links ? Object.entries(project.links).map(([key, url]) => `<a href="${url}" target="_blank" class="btn btn-outline" style="padding:8px 16px;font-size:13px"><i class="fas fa-${key === 'github' ? 'code-branch' : 'external-link-alt'}"></i> ${key.charAt(0).toUpperCase() + key.slice(1)}</a>`).join('') : '';
+  const tagsHTML = project.tags
+    ? project.tags.map((t) => `<span class="tag">${t}</span>`).join("")
+    : "";
+  const challengeHTML = project.challenge
+    ? `<div class="modal-challenge"><i class="fas fa-lightbulb"></i> <strong>Behind the Code:</strong> ${project.challenge}</div>`
+    : "";
+  const linksHTML = project.links
+    ? Object.entries(project.links)
+        .map(
+          ([key, url]) =>
+            `<a href="${url}" target="_blank" class="btn btn-outline" style="padding:8px 16px;font-size:13px"><i class="fas fa-${key === "github" ? "code-branch" : "external-link-alt"}"></i> ${key.charAt(0).toUpperCase() + key.slice(1)}</a>`,
+        )
+        .join("")
+    : "";
 
-  previewContent.innerHTML = previewHTML + `
+  previewContent.innerHTML =
+    previewHTML +
+    `
     <div class="modal-description">
       <h3>About This Project</h3>
       <p>${project.description}</p>
       ${challengeHTML}
       <div class="modal-tags">${tagsHTML}</div>
-      ${linksHTML ? `<div class="modal-links">${linksHTML}</div>` : ''}
+      ${linksHTML ? `<div class="modal-links">${linksHTML}</div>` : ""}
     </div>`;
 
   // Gallery tab
@@ -535,7 +548,7 @@ window.addEventListener("keydown", (e) => {
    ========================================== */
 function setupScrollEffects() {
   const header = document.getElementById("header");
-  const floatingBtn = document.getElementById("floatingResumeBtn");
+  const aiAgentBtn = document.getElementById("aiAgentBtn");
   const backToTop = document.getElementById("backToTop");
   const floatingSocial = document.getElementById("floatingSocial");
 
@@ -569,7 +582,7 @@ function setupScrollEffects() {
     header.classList.toggle("scrolled", scrollY > 60);
 
     // Floating buttons
-    if (floatingBtn) floatingBtn.classList.toggle("visible", scrollY > 400);
+    if (aiAgentBtn) aiAgentBtn.classList.toggle("visible", scrollY > 400);
     if (backToTop) backToTop.classList.toggle("visible", scrollY > 600);
     if (floatingSocial)
       floatingSocial.classList.toggle("visible", scrollY > 400);
@@ -795,4 +808,83 @@ function showToast(message, type = "success") {
     toast.style.transform = "translateX(-50%) translateY(20px)";
     setTimeout(() => toast.remove(), 400);
   }, 4000);
+}
+
+/* ==========================================
+   AI CHAT AGENT
+   ========================================== */
+function setupAIChat(chatData) {
+  const btn = document.getElementById("aiAgentBtn");
+  const chatWindow = document.getElementById("aiChatWindow");
+  const closeBtn = document.getElementById("aiChatClose");
+  const body = document.getElementById("aiChatBody");
+  const questionsContainer = document.getElementById("aiChatQuestions");
+  if (!btn || !chatWindow || !chatData) return;
+
+  // Render preset questions
+  function renderQuestions() {
+    questionsContainer.innerHTML = chatData
+      .map(
+        (item, i) =>
+          `<button class="ai-question-btn" data-index="${i}">${item.question}</button>`,
+      )
+      .join("");
+  }
+
+  renderQuestions();
+
+  // Toggle chat window
+  btn.addEventListener("click", () => {
+    chatWindow.classList.toggle("open");
+    btn.classList.toggle("active");
+  });
+
+  closeBtn.addEventListener("click", () => {
+    chatWindow.classList.remove("open");
+    btn.classList.remove("active");
+  });
+
+  // Handle question click
+  questionsContainer.addEventListener("click", (e) => {
+    const questionBtn = e.target.closest(".ai-question-btn");
+    if (!questionBtn) return;
+
+    const index = parseInt(questionBtn.dataset.index);
+    const item = chatData[index];
+
+    // Add user question bubble
+    const userBubble = document.createElement("div");
+    userBubble.className = "ai-chat-bubble ai-bubble-user";
+    userBubble.innerHTML = `<p>${item.question}</p>`;
+    body.appendChild(userBubble);
+
+    // Show typing indicator
+    const typing = document.createElement("div");
+    typing.className = "ai-chat-bubble ai-bubble-bot ai-typing";
+    typing.innerHTML = `<div class="typing-dots"><span></span><span></span><span></span></div>`;
+    body.appendChild(typing);
+    body.scrollTop = body.scrollHeight;
+
+    // Simulate delay, then show answer
+    setTimeout(() => {
+      typing.remove();
+      const botBubble = document.createElement("div");
+      botBubble.className = "ai-chat-bubble ai-bubble-bot";
+      botBubble.innerHTML = `<p>${item.answer}</p>`;
+      body.appendChild(botBubble);
+      body.scrollTop = body.scrollHeight;
+    }, 800);
+  });
+
+  // Close on outside click
+  document.addEventListener("click", (e) => {
+    if (
+      !chatWindow.contains(e.target) &&
+      !btn.contains(e.target) &&
+      chatWindow.classList.contains("open")
+    ) {
+      chatWindow.classList.remove("open");
+      btn.classList.remove("active");
+    }
+  });
 }
