@@ -182,15 +182,19 @@ function renderExperience(experience) {
     <div class="timeline-card reveal">
       <div class="timeline-icon">💼</div>
       <div class="timeline-body">
-        <h3 class="timeline-title">${exp.position}</h3>
-        <p class="timeline-subtitle">${exp.company}</p>
-        <div class="timeline-meta">
-          <span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>
-          <span><i class="fas fa-calendar-alt"></i> ${exp.duration}</span>
+        <div class="timeline-header-row">
+          <div>
+            <h3 class="timeline-title">${exp.position}</h3>
+            <p class="timeline-subtitle">${exp.company}</p>
+          </div>
+          <div class="timeline-meta-right">
+            <span><i class="fas fa-calendar-alt"></i> ${exp.duration}</span>
+            <span><i class="fas fa-map-marker-alt"></i> ${exp.location}</span>
+          </div>
         </div>
-        <div class="timeline-badges">
-          ${exp.highlights.map((h) => `<span class="badge">${h}</span>`).join("")}
-        </div>
+        <ul class="timeline-highlights">
+          ${exp.highlights.map((h) => `<li>${h}</li>`).join("")}
+        </ul>
       </div>
     </div>`,
     )
@@ -451,16 +455,30 @@ function openProjectModal(project) {
 
   // Preview tab
   const previewContent = document.getElementById("previewContent");
+  let previewHTML = '';
   if (project.preview) {
     const videoId = extractYouTubeId(project.preview);
     if (videoId) {
-      previewContent.innerHTML = `<iframe width="100%" height="480" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:12px"></iframe>`;
+      previewHTML = `<iframe width="100%" height="480" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:12px"></iframe>`;
     } else {
-      previewContent.innerHTML = `<p class="no-preview">Preview format not supported</p>`;
+      previewHTML = `<p class="no-preview">Preview format not supported</p>`;
     }
   } else {
-    previewContent.innerHTML = `<p class="no-preview">No preview available for this project</p>`;
+    previewHTML = `<p class="no-preview">No preview available for this project</p>`;
   }
+
+  const tagsHTML = project.tags ? project.tags.map(t => `<span class="tag">${t}</span>`).join('') : '';
+  const challengeHTML = project.challenge ? `<div class="modal-challenge"><i class="fas fa-lightbulb"></i> <strong>Behind the Code:</strong> ${project.challenge}</div>` : '';
+  const linksHTML = project.links ? Object.entries(project.links).map(([key, url]) => `<a href="${url}" target="_blank" class="btn btn-outline" style="padding:8px 16px;font-size:13px"><i class="fas fa-${key === 'github' ? 'code-branch' : 'external-link-alt'}"></i> ${key.charAt(0).toUpperCase() + key.slice(1)}</a>`).join('') : '';
+
+  previewContent.innerHTML = previewHTML + `
+    <div class="modal-description">
+      <h3>About This Project</h3>
+      <p>${project.description}</p>
+      ${challengeHTML}
+      <div class="modal-tags">${tagsHTML}</div>
+      ${linksHTML ? `<div class="modal-links">${linksHTML}</div>` : ''}
+    </div>`;
 
   // Gallery tab
   document.getElementById("galleryContent").innerHTML = project.images
